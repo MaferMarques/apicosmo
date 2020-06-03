@@ -5,7 +5,6 @@ node_modules
 .vscode/
 build/
 tmp/
-ormconfig.json
 
 tmp/*
 !tmp/.gitkeep
