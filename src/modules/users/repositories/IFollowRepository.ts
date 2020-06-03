@@ -7,5 +7,4 @@ export default interface IFollowRepository {
     follower_id: string,
   ): Promise<Follow | undefined>;
   delete(follow: Follow): Promise<void>;
-  findIDs(user_id: string): Promise<string[] | undefined>;
 }

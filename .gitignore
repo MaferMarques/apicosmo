@@ -5,6 +5,7 @@ node_modules
 .vscode/
 build/
 tmp/
+dist
 
 tmp/*
 !tmp/.gitkeep
