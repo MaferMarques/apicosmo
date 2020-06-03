@@ -1,0 +1,10 @@
+import ICreatePostDTO from '@modules/publications/dtos/ICreatePostDTO';
+import Post from '../infra/typeorm/entities/Post';
+
+export default interface IUsersRepository {
+  create({ content, user_id }: ICreatePostDTO): Promise<Post>;
+  save(post: Post): Promise<Post>;
+  findAll(): Promise<Post[] | undefined>;
+  findByID(id: string): Promise<Post | undefined>;
+  findByUserID(id: string): Promise<Post[] | undefined>;
+}
