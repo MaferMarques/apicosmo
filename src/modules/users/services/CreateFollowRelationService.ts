@@ -43,6 +43,10 @@ class CreateCargoService {
       throw new AppError('You cannot follow a same user twice');
     }
 
+    if (user_id === follower_id) {
+      throw new AppError('You cannot follow yourself');
+    }
+
     const follow = await this.followRepository.create(user_id, follower_id);
 
     foundUser.followers += 1;

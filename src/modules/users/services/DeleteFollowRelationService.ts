@@ -42,6 +42,10 @@ class DeleteFollowRelationService {
       throw new AppError('Relation not found');
     }
 
+    if (user_id === follower_id) {
+      throw new AppError('You cannot follow yourself');
+    }
+
     await this.followRepository.delete(foundFollow);
 
     foundUser.followers -= 1;
