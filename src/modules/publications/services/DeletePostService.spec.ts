@@ -1,62 +1,46 @@
-import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import AppError from '@shared/errors/AppError';
+
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakePostsRepository from '../repositories/fakes/FakePostsRepository';
-import UpdatePostService from './UpdatePostService';
+
+import DeletePostService from './DeletePostService';
 
 let fakePostsRepository: FakePostsRepository;
 let fakeUsersRepository: FakeUsersRepository;
-let updatePost: UpdatePostService;
+let deletePost: DeletePostService;
 
-describe('UpdatePost', () => {
+describe('DeletePost', () => {
   beforeEach(() => {
     fakePostsRepository = new FakePostsRepository();
     fakeUsersRepository = new FakeUsersRepository();
 
-    updatePost = new UpdatePostService(
+    deletePost = new DeletePostService(
       fakePostsRepository,
       fakeUsersRepository,
     );
   });
 
-  it('should able to update a existent post', async () => {
+  it('should be able to delete a post', async () => {
     const user = await fakeUsersRepository.create({
       email: 'teste@teste.com',
       nickname: 'teste',
       password: '123456',
     });
 
-    const post = await fakePostsRepository.create({
+    const post1 = await fakePostsRepository.create({
+      content: 'post teste',
       user_id: user.id,
-      content: 'teste',
-      image: 'foto teste',
     });
 
-    await updatePost.execute({
+    const deleted = await deletePost.execute({
+      post_id: post1.id,
       user_id: user.id,
-      post_id: post.id,
-      content: 'teste mesmo',
     });
 
-    expect(post.content).toEqual('teste mesmo');
+    expect(deleted).toEqual(undefined);
   });
 
-  it('should not be able to update a invalid post', async () => {
-    const user = await fakeUsersRepository.create({
-      email: 'teste@teste.com',
-      nickname: 'teste',
-      password: '123456',
-    });
-
-    expect(
-      updatePost.execute({
-        content: 'post teste',
-        user_id: user.id,
-        post_id: 'invalid post id',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to update a other user post', async () => {
+  it('should not be able to delete a other user post', async () => {
     const user1 = await fakeUsersRepository.create({
       email: 'teste@teste.com',
       nickname: 'teste',
@@ -75,10 +59,9 @@ describe('UpdatePost', () => {
     });
 
     expect(
-      updatePost.execute({
+      deletePost.execute({
         post_id: postFromUser1.id,
         user_id: user2.id,
-        content: 'bla bla bla',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

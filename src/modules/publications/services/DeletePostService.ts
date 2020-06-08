@@ -5,16 +5,13 @@ import AppError from '@shared/errors/AppError';
 import IPostsRepository from '../repositories/IPostsRepository';
 // import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
-import Post from '../infra/typeorm/entities/Post';
-
 interface IRequest {
-  content: string;
-  user_id: string;
   post_id: string;
+  user_id: string;
 }
 
 @injectable()
-class UpdatePostService {
+class DeleteLikeService {
   constructor(
     @inject('PostsRepository')
     private postsRepository: IPostsRepository,
@@ -23,7 +20,7 @@ class UpdatePostService {
     private usersRepository: IUsersRepository, // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ content, user_id, post_id }: IRequest): Promise<Post> {
+  public async execute({ post_id, user_id }: IRequest): Promise<void> {
     const foundUser = await this.usersRepository.findById(user_id);
 
     if (!foundUser) {
@@ -40,12 +37,8 @@ class UpdatePostService {
       throw new AppError('Not Allowed');
     }
 
-    foundPost.content = content;
-
-    const post = await this.postsRepository.save(foundPost);
-
-    return post;
+    await this.postsRepository.delete(post_id);
   }
 }
 
-export default UpdatePostService;
+export default DeleteLikeService;

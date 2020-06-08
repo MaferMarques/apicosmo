@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateLikeService {
+class DeleteLikeService {
   constructor(
     @inject('PostsRepository')
     private postsRepository: IPostsRepository,
@@ -58,4 +58,4 @@ class CreateLikeService {
   }
 }
 
-export default CreateLikeService;
+export default DeleteLikeService;

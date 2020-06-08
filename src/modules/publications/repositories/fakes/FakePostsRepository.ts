@@ -45,6 +45,12 @@ class FakeUsersRepository implements IPostsRepository {
 
     return foundPosts;
   }
+
+  public async delete(post_id: string): Promise<void> {
+    const findIndex = this.posts.findIndex((post) => post.id === post_id);
+
+    this.posts.splice(findIndex, 1);
+  }
 }
 
 export default FakeUsersRepository;

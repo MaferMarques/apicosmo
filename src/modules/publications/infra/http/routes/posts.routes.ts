@@ -52,6 +52,8 @@ postsRouter.put(
   postsController.update,
 );
 
+postsRouter.delete('/:post_id', ensureAuthenticated, postsController.destroy);
+
 postsRouter.patch(
   '/:post_id/image',
   ensureAuthenticated,

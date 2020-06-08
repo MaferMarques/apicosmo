@@ -7,4 +7,5 @@ export default interface IUsersRepository {
   findAll(): Promise<Post[] | undefined>;
   findByID(id: string): Promise<Post | undefined>;
   findByUserID(id: string): Promise<Post[] | undefined>;
+  delete(post_id: string): Promise<void>;
 }
