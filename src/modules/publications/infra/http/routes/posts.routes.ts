@@ -11,7 +11,7 @@ import LikesController from '../controllers/LikesController';
 
 const postsRouter = Router();
 
-const postController = new PostsController();
+const postsController = new PostsController();
 const postsImageController = new PostsImageController();
 const likesController = new LikesController();
 
@@ -31,10 +31,26 @@ postsRouter.post(
       abortEarly: false,
     },
   ),
-  postController.create,
+  postsController.create,
 );
 
-postsRouter.get('/', ensureAuthenticated, postController.index);
+postsRouter.get('/', ensureAuthenticated, postsController.index);
+
+postsRouter.put(
+  '/:post_id',
+  ensureAuthenticated,
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
+  postsController.update,
+);
 
 postsRouter.patch(
   '/:post_id/image',
