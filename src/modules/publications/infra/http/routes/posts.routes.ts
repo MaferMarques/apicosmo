@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
-import { celebrate, Segments, Joi } from 'celebrate';
+import { celebrate, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
@@ -19,12 +19,18 @@ const upload = multer(uploadConfig);
 
 postsRouter.post(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      content: Joi.string().required(),
-    },
-  }),
   ensureAuthenticated,
+  upload.single('image'),
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
   postController.create,
 );
 

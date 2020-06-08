@@ -7,7 +7,6 @@ import { classToClass } from 'class-transformer';
 export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { post_id } = request.params;
-    console.log(post_id);
 
     const updatePostImage = container.resolve(UpdatePostImageService);
 

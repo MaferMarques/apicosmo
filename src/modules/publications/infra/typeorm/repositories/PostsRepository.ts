@@ -12,8 +12,12 @@ class PostsRepository implements IPostsRepository {
     this.ormRepository = getRepository(Post);
   }
 
-  public async create({ content, user_id }: ICreatePostDTO): Promise<Post> {
-    const post = this.ormRepository.create({ content, user_id });
+  public async create({
+    content,
+    user_id,
+    image,
+  }: ICreatePostDTO): Promise<Post> {
+    const post = this.ormRepository.create({ content, user_id, image });
 
     await this.ormRepository.save(post);
 

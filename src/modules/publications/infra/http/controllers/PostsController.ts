@@ -9,15 +9,17 @@ export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const { content } = request.body;
+    const image = request.file?.filename;
 
     const createPost = container.resolve(CreatePostService);
 
-    const user = await createPost.execute({
+    const post = await createPost.execute({
       content,
       user_id,
+      image,
     });
 
-    return response.json(classToClass(user));
+    return response.json(classToClass(post));
   }
 
   public async index(request: Request, response: Response): Promise<Response> {

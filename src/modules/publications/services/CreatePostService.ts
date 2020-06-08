@@ -10,6 +10,7 @@ import Post from '../infra/typeorm/entities/Post';
 interface IRequest {
   content: string;
   user_id: string;
+  image?: string;
 }
 
 @injectable()
@@ -22,7 +23,7 @@ class CreateUserService {
     private usersRepository: IUsersRepository, // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ content, user_id }: IRequest): Promise<Post> {
+  public async execute({ content, user_id, image }: IRequest): Promise<Post> {
     const foundUser = await this.usersRepository.findById(user_id);
 
     if (!foundUser) {
@@ -30,6 +31,7 @@ class CreateUserService {
     }
 
     const post = await this.postsRepository.create({
+      image,
       content,
       user_id: foundUser.id,
     });
