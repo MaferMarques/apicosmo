@@ -8,6 +8,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { Expose } from 'class-transformer';
+
 import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('posts')
@@ -20,6 +22,11 @@ class Post {
 
   @Column()
   image: string;
+
+  @Expose({ name: 'image_url' })
+  getImageUrl(): string | null {
+    return this.image ? `${process.env.APP_API_URL}/files/${this.image}` : null;
+  }
 
   @Column()
   user_id: string;

@@ -30,6 +30,8 @@ class ListPostsService {
 
     const posts = await this.postsRepository.findAll();
 
+    console.log(posts);
+
     return posts;
   }
 }
