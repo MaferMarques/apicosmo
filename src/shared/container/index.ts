@@ -21,6 +21,9 @@ import LikesRepository from '@modules/publications/infra/typeorm/repositories/Li
 import IFollowRepository from '@modules/users/repositories/IFollowRepository';
 import FollowRepository from '@modules/users/infra/typeorm/repositories/FollowRepository';
 
+import ICommentsRepository from '@modules/publications/repositories/ICommentsRepository';
+import CommentsRepository from '@modules/publications/infra/typeorm/repositories/CommentsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -49,4 +52,9 @@ container.registerSingleton<ILikesRepository>(
 container.registerSingleton<IFollowRepository>(
   'FollowRepository',
   FollowRepository,
+);
+
+container.registerSingleton<ICommentsRepository>(
+  'CommentsRepository',
+  CommentsRepository,
 );
