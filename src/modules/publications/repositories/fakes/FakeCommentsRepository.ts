@@ -26,6 +26,18 @@ class FakeCommentsRepository implements ICommentsRepository {
 
     return comment;
   }
+
+  public async findByID(id: string): Promise<Comment | undefined> {
+    const foundComment = this.comments.find((comment) => comment.id === id);
+
+    return foundComment;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const findIndex = this.comments.findIndex((comment) => comment.id === id);
+
+    this.comments.splice(findIndex, 1);
+  }
 }
 
 export default FakeCommentsRepository;

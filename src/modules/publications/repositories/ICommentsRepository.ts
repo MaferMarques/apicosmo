@@ -8,4 +8,6 @@ export default interface ICommentsRepository {
     type,
     post_id,
   }: ICreateCommentDTO): Promise<Comment>;
+  findByID(comment_id: string): Promise<Comment | undefined>;
+  delete(post_id: string): Promise<void>;
 }

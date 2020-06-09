@@ -63,6 +63,7 @@ postsRouter.patch(
   postsImageController.update,
 );
 
+// Like Part
 postsRouter.post(
   '/:post_id/likes',
   ensureAuthenticated,
@@ -75,6 +76,9 @@ postsRouter.delete(
   likesController.destroy,
 );
 
+//
+
+// Comment Part
 postsRouter.post(
   '/:post_id/comments',
   ensureAuthenticated,
@@ -90,5 +94,18 @@ postsRouter.post(
   ),
   commentsController.create,
 );
+
+postsRouter.delete(
+  '/:post_id/comments',
+  ensureAuthenticated,
+  celebrate({
+    body: Joi.object().keys({
+      comment_id: Joi.string().required(),
+    }),
+  }),
+  commentsController.destroy,
+);
+
+//
 
 export default postsRouter;
