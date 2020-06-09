@@ -42,6 +42,7 @@ class CreateCommentService {
       post_id,
       content,
       user_id: foundUser.id,
+      type: 1,
     });
 
     return post;

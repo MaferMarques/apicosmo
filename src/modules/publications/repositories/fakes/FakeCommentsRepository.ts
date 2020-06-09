@@ -12,6 +12,7 @@ class FakeCommentsRepository implements ICommentsRepository {
     content,
     user_id,
     post_id,
+    type,
   }: ICreateCommentDTO): Promise<Comment> {
     const comment = new Comment();
 
@@ -19,6 +20,7 @@ class FakeCommentsRepository implements ICommentsRepository {
     comment.id = uuid();
     comment.user_id = user_id;
     comment.post_id = post_id;
+    comment.type = type;
 
     this.comments.push(comment);
 

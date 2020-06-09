@@ -20,8 +20,8 @@ class Comment {
   @Column()
   content: string;
 
-  @Column()
-  type: string;
+  @Column('int')
+  type: number;
 
   @CreateDateColumn()
   created_at: Date;

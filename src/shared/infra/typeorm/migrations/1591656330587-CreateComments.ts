@@ -27,7 +27,7 @@ export default class CreateComments1591656330587 implements MigrationInterface {
           },
           {
             name: 'type',
-            type: 'varchar',
+            type: 'int',
           },
           {
             name: 'created_at',
