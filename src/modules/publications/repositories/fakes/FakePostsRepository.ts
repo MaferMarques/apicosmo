@@ -14,6 +14,7 @@ class FakeUsersRepository implements IPostsRepository {
     post.content = content;
     post.id = uuid();
     post.user_id = user_id;
+    post.comments = 0;
 
     this.posts.push(post);
 

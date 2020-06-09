@@ -10,7 +10,7 @@ const commentsRouter = Router();
 const commentsController = new CommentsController();
 
 commentsRouter.post(
-  '/:post_id/likes',
+  '/:post_id/comments',
   ensureAuthenticated,
   celebrate(
     {

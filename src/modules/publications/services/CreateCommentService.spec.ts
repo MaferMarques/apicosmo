@@ -36,12 +36,12 @@ describe('CreateComment', () => {
       user_id: user.id,
     });
 
-    const comment = await createComment.execute({
+    await createComment.execute({
       post_id: post.id,
       user_id: user.id,
       content: 'Comentário teste',
     });
 
-    expect(comment).toHaveProperty('user_id');
+    expect(post.comments).toEqual(1);
   });
 });

@@ -8,12 +8,14 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 import PostsController from '../controllers/PostsController';
 import PostsImageController from '../controllers/PostsImageController';
 import LikesController from '../controllers/LikesController';
+import CommentsController from '../controllers/CommentsController';
 
 const postsRouter = Router();
 
 const postsController = new PostsController();
 const postsImageController = new PostsImageController();
 const likesController = new LikesController();
+const commentsController = new CommentsController();
 
 const upload = multer(uploadConfig);
 
@@ -71,6 +73,22 @@ postsRouter.delete(
   '/:post_id/likes',
   ensureAuthenticated,
   likesController.destroy,
+);
+
+postsRouter.post(
+  '/:post_id/comments',
+  ensureAuthenticated,
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
+  commentsController.create,
 );
 
 export default postsRouter;

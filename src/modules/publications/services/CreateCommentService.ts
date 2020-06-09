@@ -38,14 +38,24 @@ class CreateCommentService {
       throw new AppError('User not found.');
     }
 
-    const post = await this.commentsRepository.create({
+    const foundPost = await this.postsRepository.findByID(post_id);
+
+    if (!foundPost) {
+      throw new AppError('Post not found');
+    }
+
+    foundPost.comments += 1;
+
+    await this.postsRepository.save(foundPost);
+
+    const comment = await this.commentsRepository.create({
       post_id,
       content,
-      user_id: foundUser.id,
+      user_id,
       type: 1,
     });
 
-    return post;
+    return comment;
   }
 }
 

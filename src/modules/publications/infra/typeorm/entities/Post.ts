@@ -34,6 +34,9 @@ class Post {
   @Column()
   likes: number;
 
+  @Column()
+  comments: number;
+
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
