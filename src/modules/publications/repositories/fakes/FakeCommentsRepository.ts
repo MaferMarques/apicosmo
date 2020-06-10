@@ -48,6 +48,16 @@ class FakeCommentsRepository implements ICommentsRepository {
 
     return foundComments;
   }
+
+  public async save(comment: Comment): Promise<Comment> {
+    const findIndex = this.comments.findIndex(
+      (foundPost) => foundPost.id === comment.id,
+    );
+
+    this.comments[findIndex] = comment;
+
+    return comment;
+  }
 }
 
 export default FakeCommentsRepository;

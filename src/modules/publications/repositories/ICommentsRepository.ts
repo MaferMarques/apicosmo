@@ -11,4 +11,5 @@ export default interface ICommentsRepository {
   findByID(comment_id: string): Promise<Comment | undefined>;
   delete(post_id: string): Promise<void>;
   findAllByPostID(post_id: string): Promise<Comment[] | undefined>;
+  save(comment: Comment): Promise<Comment>;
 }

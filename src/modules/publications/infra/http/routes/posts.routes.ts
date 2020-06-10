@@ -101,6 +101,23 @@ postsRouter.get(
   commentsController.index,
 );
 
+postsRouter.put(
+  '/:post_id/comments',
+  ensureAuthenticated,
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+        comment_id: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
+  commentsController.update,
+);
+
 postsRouter.delete(
   '/:post_id/comments',
   ensureAuthenticated,

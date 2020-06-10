@@ -49,6 +49,10 @@ class CommentsRepository implements ICommentsRepository {
 
     return foundComments;
   }
+
+  public async save(comment: Comment): Promise<Comment> {
+    return this.ormRepository.save(comment); // if already exists, only updates
+  }
 }
 
 export default CommentsRepository;
