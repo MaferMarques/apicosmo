@@ -108,12 +108,24 @@ describe('DeleteLike', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  // it('should not be able to create a like in a post', async () => {
-  //   expect(
-  //     createLike.execute({
-  //       post_id: ''
-  //       user_id: 'invalid id',
-  //     }),
-  //   ).rejects.toBeInstanceOf(AppError);
-  // });
+  it('should not be able to dislike a post when it has 0 like', async () => {
+    const post = await fakePostsRepository.create({
+      user_id: '123123',
+      content: 'teste teste',
+    });
+
+    post.likes = 0;
+
+    await fakeLikeRepository.create({
+      post_id: post.id,
+      user_id: '123123',
+    });
+
+    expect(
+      deleteLike.execute({
+        post_id: post.id,
+        user_id: '123123123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

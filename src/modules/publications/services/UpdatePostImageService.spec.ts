@@ -42,6 +42,27 @@ describe('UpdatePostImage', () => {
     expect(post.image).toEqual('post.jpg');
   });
 
+  it('should able update post image even with a image', async () => {
+    const user = await fakeUsersRepository.create({
+      email: 'fulano@fulano.com',
+      password: 'fulano',
+      nickname: 'teste',
+    });
+
+    const post = await fakePostsRepository.create({
+      user_id: user.id,
+      content: 'teste teste teste',
+      image: 'teste.jpg',
+    });
+
+    await updatePostImage.execute({
+      post_id: post.id,
+      postFilename: 'post.jpg',
+    });
+
+    expect(post.image).toEqual('post.jpg');
+  });
+
   it('should not able update post image', async () => {
     expect(
       updatePostImage.execute({

@@ -82,4 +82,14 @@ describe('UpdatePost', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not able to create a comment in a without permission', async () => {
+    expect(
+      updatePost.execute({
+        post_id: 'post id',
+        user_id: 'invalid user id',
+        content: 'Comentário teste',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

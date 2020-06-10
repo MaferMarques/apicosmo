@@ -65,4 +65,33 @@ describe('DeletePost', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not able to delete a post in a without permission', async () => {
+    const post = await fakePostsRepository.create({
+      content: 'post teste',
+      user_id: '123123',
+    });
+
+    expect(
+      deletePost.execute({
+        post_id: post.id,
+        user_id: 'invalid user id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not able to delte a invalid post', async () => {
+    const user = await fakeUsersRepository.create({
+      email: 'teste@teste.com',
+      nickname: 'teste',
+      password: '123456',
+    });
+
+    expect(
+      deletePost.execute({
+        post_id: 'invalid id',
+        user_id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
