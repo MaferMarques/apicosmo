@@ -31,13 +31,23 @@ class CommentsRepository implements ICommentsRepository {
   }
 
   public async findByID(id: string): Promise<Comment | undefined> {
-    const comment = this.ormRepository.findOne(id);
+    const comment = await this.ormRepository.findOne(id);
 
     return comment;
   }
 
   public async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id);
+  }
+
+  public async findAllByPostID(
+    post_id: string,
+  ): Promise<Comment[] | undefined> {
+    const foundComments = await this.ormRepository.find({
+      where: { post_id },
+    });
+
+    return foundComments;
   }
 }
 

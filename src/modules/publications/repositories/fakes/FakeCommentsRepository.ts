@@ -38,6 +38,16 @@ class FakeCommentsRepository implements ICommentsRepository {
 
     this.comments.splice(findIndex, 1);
   }
+
+  public async findAllByPostID(
+    post_id: string,
+  ): Promise<Comment[] | undefined> {
+    const foundComments = this.comments.filter(
+      (comment) => comment.post_id === post_id,
+    );
+
+    return foundComments;
+  }
 }
 
 export default FakeCommentsRepository;

@@ -95,6 +95,12 @@ postsRouter.post(
   commentsController.create,
 );
 
+postsRouter.get(
+  '/:post_id/comments',
+  ensureAuthenticated,
+  commentsController.index,
+);
+
 postsRouter.delete(
   '/:post_id/comments',
   ensureAuthenticated,

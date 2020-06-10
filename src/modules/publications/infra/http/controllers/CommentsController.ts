@@ -4,6 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateCommentService from '@modules/publications/services/CreateCommentService';
 import DeleteCommentService from '@modules/publications/services/DeleteCommentService';
+import ListPostCommentsService from '@modules/publications/services/ListPostCommentsService';
 
 export default class CommentsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -20,6 +21,20 @@ export default class CommentsController {
     });
 
     return response.json(classToClass(comment));
+  }
+
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { post_id } = request.params;
+
+    const listComments = container.resolve(ListPostCommentsService);
+
+    const comments = await listComments.execute({
+      user_id,
+      post_id,
+    });
+
+    return response.json(classToClass(comments));
   }
 
   public async destroy(
