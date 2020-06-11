@@ -40,6 +40,9 @@ class User {
   @Column()
   followers: number;
 
+  @Column()
+  following: number;
+
   @CreateDateColumn()
   created_at: Date;
 
