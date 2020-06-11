@@ -50,8 +50,10 @@ class CreateCargoService {
     const follow = await this.followRepository.create(user_id, follower_id);
 
     foundUser.followers += 1;
+    foundFollower.following += 1;
 
     await this.usersRepository.save(foundUser);
+    await this.usersRepository.save(foundFollower);
 
     return follow;
   }

@@ -49,8 +49,10 @@ class DeleteFollowRelationService {
     await this.followRepository.delete(foundFollow);
 
     foundUser.followers -= 1;
+    foundFollower.following -= 1;
 
     await this.usersRepository.save(foundUser);
+    await this.usersRepository.save(foundFollower);
   }
 }
 
