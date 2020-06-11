@@ -55,6 +55,8 @@ describe('UpdatePostImage', () => {
       image: 'teste.jpg',
     });
 
+    post.image = 'teste.jpg';
+
     await updatePostImage.execute({
       post_id: post.id,
       postFilename: 'post.jpg',

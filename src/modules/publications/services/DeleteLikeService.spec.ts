@@ -86,6 +86,26 @@ describe('DeleteLike', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
+  it('should not be able to dislike a post when user didnt like it', async () => {
+    const user = await fakeUsersRepository.create({
+      email: 'teste@teste.com',
+      nickname: 'teste',
+      password: '123456',
+    });
+
+    const post = await fakePostsRepository.create({
+      content: 'post teste',
+      user_id: user.id,
+    });
+
+    expect(
+      deleteLike.execute({
+        user_id: user.id,
+        post_id: post.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('should not be able to dislike a post when it has 0 likes', async () => {
     const user = await fakeUsersRepository.create({
       email: 'teste@teste.com',
@@ -98,33 +118,17 @@ describe('DeleteLike', () => {
       user_id: user.id,
     });
 
+    await fakeLikeRepository.create({
+      post_id: post.id,
+      user_id: user.id,
+    });
+
     post.likes = 0;
 
     expect(
       deleteLike.execute({
         user_id: user.id,
         post_id: post.id,
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('should not be able to dislike a post when it has 0 like', async () => {
-    const post = await fakePostsRepository.create({
-      user_id: '123123',
-      content: 'teste teste',
-    });
-
-    post.likes = 0;
-
-    await fakeLikeRepository.create({
-      post_id: post.id,
-      user_id: '123123',
-    });
-
-    expect(
-      deleteLike.execute({
-        post_id: post.id,
-        user_id: '123123123',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
