@@ -77,4 +77,34 @@ describe('CreateFollow', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('user should not be able to follow a user without permission', async () => {
+    const user1 = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      password: '12345678',
+      nickname: 'teste',
+    });
+
+    expect(
+      createFollow.execute({
+        user_id: user1.id,
+        follower_id: 'invalid id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('user should not be able to follow a invalid user', async () => {
+    const user1 = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      password: '12345678',
+      nickname: 'teste',
+    });
+
+    expect(
+      createFollow.execute({
+        user_id: 'invalid id',
+        follower_id: user1.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
