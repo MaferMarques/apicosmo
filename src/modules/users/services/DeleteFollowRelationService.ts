@@ -43,7 +43,7 @@ class DeleteFollowRelationService {
     }
 
     if (user_id === follower_id) {
-      throw new AppError('You cannot follow yourself');
+      throw new AppError('You cannot unfollow yourself');
     }
 
     await this.followRepository.delete(foundFollow);

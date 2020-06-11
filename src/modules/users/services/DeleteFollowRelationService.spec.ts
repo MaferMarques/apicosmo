@@ -56,4 +56,51 @@ describe('DeleteFollow', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('user should not be able to unfollow a user without permission', async () => {
+    const user1 = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      password: '12345678',
+      nickname: 'teste',
+    });
+
+    expect(
+      deleteFollow.execute({
+        user_id: user1.id,
+        follower_id: 'invalid id',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('user should not be able to unfollow a invalid user', async () => {
+    const user1 = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      password: '12345678',
+      nickname: 'teste',
+    });
+
+    expect(
+      deleteFollow.execute({
+        user_id: 'invalid id',
+        follower_id: user1.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('user should not be able to unfollow himself', async () => {
+    const user1 = await fakeUsersRepository.create({
+      email: 'test@test.com',
+      password: '12345678',
+      nickname: 'teste',
+    });
+
+    await fakeFollowRepository.create(user1.id, user1.id);
+
+    expect(
+      deleteFollow.execute({
+        user_id: user1.id,
+        follower_id: user1.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
