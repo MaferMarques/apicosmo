@@ -8,7 +8,6 @@ import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
   user_id: string;
-  nickname: string;
   email: string;
   old_password?: string;
   new_password?: string;
@@ -26,7 +25,6 @@ class UpdateProfileService {
 
   public async execute({
     user_id,
-    nickname,
     email,
     new_password,
     old_password,
@@ -43,7 +41,6 @@ class UpdateProfileService {
       throw new AppError('E-mail already used.');
     }
 
-    user.nickname = nickname;
     user.email = email;
 
     if (new_password && !old_password) {

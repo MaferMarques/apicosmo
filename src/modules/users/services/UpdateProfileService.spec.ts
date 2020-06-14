@@ -28,11 +28,10 @@ describe('UpdateProfile', () => {
 
     const updatedUser = await updateProfile.execute({
       user_id: user.id,
-      nickname: 'teste',
       email: 'fulanodois@email.com',
     });
 
-    expect(updatedUser.nickname).toBe('teste');
+    expect(updatedUser.nickname).toBe('teste infinito');
     expect(updatedUser.email).toBe('fulanodois@email.com');
   });
 
@@ -40,7 +39,6 @@ describe('UpdateProfile', () => {
     expect(
       updateProfile.execute({
         user_id: 'non-existing id',
-        nickname: 'fulano',
         email: 'fulano@fulano.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -62,7 +60,6 @@ describe('UpdateProfile', () => {
     await expect(
       updateProfile.execute({
         user_id: user.id,
-        nickname: 'Fulano dois',
         email: 'fulano@fulano.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -77,7 +74,6 @@ describe('UpdateProfile', () => {
 
     const updatedUser = await updateProfile.execute({
       user_id: user.id,
-      nickname: 'Teste',
       email: 'teste@fulano.com',
       old_password: '123456',
       new_password: '123123',
@@ -96,7 +92,6 @@ describe('UpdateProfile', () => {
     await expect(
       updateProfile.execute({
         user_id: user.id,
-        nickname: 'teste',
         email: 'teste@fulano.com',
         new_password: '123123',
       }),
@@ -113,7 +108,6 @@ describe('UpdateProfile', () => {
     await expect(
       updateProfile.execute({
         user_id: user.id,
-        nickname: 'teste',
         email: 'teste@fulano.com',
         new_password: '123123',
         old_password: 'senhaerrada',
