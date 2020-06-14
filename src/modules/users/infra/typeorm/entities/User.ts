@@ -43,6 +43,12 @@ class User {
   @Column()
   following: number;
 
+  @Column()
+  biography: string;
+
+  @Column()
+  cover_image: string;
+
   @CreateDateColumn()
   created_at: Date;
 
