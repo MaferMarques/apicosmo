@@ -8,6 +8,7 @@ import cargosRouter from '@modules/users/infra/http/routes/cargos.routes';
 import followRouter from '@modules/users/infra/http/routes/follow.routes';
 
 import postsRouter from '@modules/publications/infra/http/routes/posts.routes';
+import feedRouter from '@modules/publications/infra/http/routes/feed.routes';
 
 const routes = Router();
 
@@ -19,5 +20,6 @@ routes.use('/cargos', cargosRouter);
 routes.use('/follow', followRouter);
 
 routes.use('/posts', postsRouter);
+routes.use('/feed', feedRouter);
 
 export default routes;
