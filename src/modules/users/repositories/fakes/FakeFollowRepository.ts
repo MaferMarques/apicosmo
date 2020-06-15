@@ -39,10 +39,16 @@ class FakeFollowRepository implements IFollowRepository {
     this.follows.splice(findIndex, 1);
   }
 
-  public async findIDs(user_id: string): Promise<string[] | undefined> {
-    const foundIDs = this.follows.map((follow) => follow.user_id);
+  public async findFollowedUsersIdByFollowerId(
+    follower_id: string,
+  ): Promise<string[] | undefined> {
+    const filteredFollows = this.follows.filter(
+      (follow) => follow.follower_id === follower_id,
+    );
 
-    return foundIDs;
+    const foundIds = filteredFollows.map((follow) => follow.user_id);
+
+    return foundIds;
   }
 }
 

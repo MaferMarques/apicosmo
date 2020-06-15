@@ -35,6 +35,22 @@ class FollowRepository implements IFollowRepository {
 
     await this.ormRepository.delete({ user_id, follower_id });
   }
+
+  public async findFollowedUsersIdByFollowerId(
+    follower_id: string,
+  ): Promise<string[] | undefined> {
+    const foundFollows = await this.ormRepository.find({
+      where: { follower_id },
+    });
+
+    const filteredFollows = foundFollows.filter(
+      (follow) => follow.follower_id === follower_id,
+    );
+
+    const foundIds = filteredFollows.map((follow) => follow.user_id);
+
+    return foundIds;
+  }
 }
 
 export default FollowRepository;

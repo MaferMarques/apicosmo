@@ -51,6 +51,18 @@ class PostsRepository implements IPostsRepository {
   public async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id);
   }
+
+  public async findAllByFollowedUsersId(
+    users_ids: string[],
+  ): Promise<Post[] | undefined> {
+    const posts = users_ids.map((user_id) => this.findByUserID(user_id));
+
+    if (!posts) {
+      return undefined;
+    }
+
+    return posts;
+  }
 }
 
 export default PostsRepository;

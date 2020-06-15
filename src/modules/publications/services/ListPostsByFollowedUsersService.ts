@@ -32,7 +32,17 @@ class ListPostsByFollowedUsersService {
       throw new AppError('User not found.');
     }
 
-    const posts = await this.postsRepository.findAllByFollowedUsers();
+    const followedUsersId = await this.followRepository.findFollowedUsersIdByFollowerId(
+      user_id,
+    );
+
+    if (!followedUsersId) {
+      return undefined;
+    }
+
+    const posts = await this.postsRepository.findAllByFollowedUsersId(
+      followedUsersId,
+    );
 
     return posts;
   }
