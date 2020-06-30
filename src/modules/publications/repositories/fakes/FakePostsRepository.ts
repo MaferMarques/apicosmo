@@ -53,26 +53,26 @@ class FakeUsersRepository implements IPostsRepository {
     this.posts.splice(findIndex, 1);
   }
 
-  public async findAllByFollowedUsersId(
-    users_ids: string[],
-  ): Promise<Post[] | undefined> {
-    let foundPosts: Post[];
+  // public async findAllByFollowedUsersId(
+  //   users_ids: string[],
+  // ): Promise<Post[] | undefined> {
+  //   let foundPosts: Post[];
 
-    const posts = users_ids.map((user_id) =>
-      this.findByUserID(user_id).then((postsByUserId) => {
-        if (postsByUserId) {
-          return postsByUserId.map((post) => foundPosts.push(post));
-        }
-        return undefined;
-      }),
-    );
+  //   const posts = users_ids.map((user_id) =>
+  //     this.findByUserID(user_id).then((postsByUserId) => {
+  //       if (postsByUserId) {
+  //         return postsByUserId.map((post) => foundPosts.push(post));
+  //       }
+  //       return undefined;
+  //     }),
+  //   );
 
-    if (!posts) {
-      return undefined;
-    }
+  //   if (!posts) {
+  //     return undefined;
+  //   }
 
-    return posts;
-  }
+  //   return posts;
+  // }
 }
 
 export default FakeUsersRepository;
