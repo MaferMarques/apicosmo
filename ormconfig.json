@@ -2,19 +2,19 @@
   {
     "name": "default",
     "type": "postgres",
-    "host": "ec2-18-214-119-135.compute-1.amazonaws.com",
+    "host": "localhost",
     "port": 5432,
-    "username": "unofedkrsntpzb",
-    "password": "57dcf24fa9808ab97f0ec114335ecdbf53d56c044178df19923012863abe5ce2",
-    "database": "dbtc7ctmba3nfi",
+    "username": "postgres",
+    "password": "docker",
+    "database": "cosmo",
     "entities": [
-      "./dist/modules/**/infra/typeorm/entities/*.js"
+      "./src/modules/**/infra/typeorm/entities/*.ts"
     ],
     "migrations": [
-      "./dist/shared/infra/typeorm/migrations/*.js"
+      "./src/shared/infra/typeorm/migrations/*.ts"
     ],
     "cli": {
-      "migrationsDir": "./dist/shared/infra/typeorm/migrations"
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
   }
 ]

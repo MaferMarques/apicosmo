@@ -6,7 +6,7 @@ export default class AddBioFieldToUsers1592101987995
     await queryRunner.addColumn(
       'users',
       new TableColumn({
-        name: 'bio',
+        name: 'biography',
         type: 'varchar',
         isNullable: true,
       }),
@@ -14,6 +14,6 @@ export default class AddBioFieldToUsers1592101987995
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('users', 'bio');
+    await queryRunner.dropColumn('users', 'biography');
   }
 }
