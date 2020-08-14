@@ -11,7 +11,7 @@ class FakeTermRepository implements ITermRepository {
   public async create(termData: ICreateTermDTO): Promise<Term> {
     const term = new Term();
 
-    Object.assign(term, { id: uuid() }, termData);
+    Object.assign(term, { id: uuid(), has_accepted: false }, termData);
 
     this.terms.push(term);
 
