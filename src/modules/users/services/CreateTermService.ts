@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateCargoService {
+class CreateTermService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -25,22 +25,22 @@ class CreateCargoService {
     const foundUser = await this.usersRepository.findById(user_id);
 
     if (!foundUser) {
-      throw new AppError('Only logged users can create cargos');
+      throw new AppError('Only logged users can create terms');
     }
 
     const foundTerm = await this.termRepository.findByTermSlug(term_slug);
 
     if (foundTerm) {
-      throw new AppError('Cargo already exists.');
+      throw new AppError('Term already exists.');
     }
 
-    const cargo = await this.termRepository.create({
+    const term = await this.termRepository.create({
       user_id,
       term_slug,
     });
 
-    return cargo;
+    return term;
   }
 }
 
-export default CreateCargoService;
+export default CreateTermService;
