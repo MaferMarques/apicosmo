@@ -34,6 +34,16 @@ class FakeTermRepository implements ITermRepository {
 
     return foundTerm;
   }
+
+  public async save(term: Term): Promise<Term> {
+    const findIndex = this.terms.findIndex(
+      (findTerm) => findTerm.id === term.id,
+    );
+
+    this.terms[findIndex] = term;
+
+    return term;
+  }
 }
 
 export default FakeTermRepository;

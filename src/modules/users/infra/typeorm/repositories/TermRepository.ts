@@ -38,6 +38,10 @@ class TermRepository implements ITermRepository {
 
     return foundTerm;
   }
+
+  public async save(term: Term): Promise<Term> {
+    return this.ormRepository.save(term);
+  }
 }
 
 export default TermRepository;

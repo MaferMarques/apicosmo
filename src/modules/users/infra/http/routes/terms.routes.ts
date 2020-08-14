@@ -30,4 +30,18 @@ termsRouter.get(
   termController.index,
 );
 
+termsRouter.put(
+  '/:term_slug',
+  celebrate({
+    [Segments.PARAMS]: {
+      term_slug: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      has_accepted: Joi.boolean().required(),
+    },
+  }),
+  ensureAuthenticated,
+  termController.update,
+);
+
 export default termsRouter;

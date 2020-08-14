@@ -9,4 +9,5 @@ export default interface ITermRepository {
     term_slug: string,
     user_id: string,
   ): Promise<Term | undefined>;
+  save(term: Term): Promise<Term>;
 }
