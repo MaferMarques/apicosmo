@@ -24,6 +24,9 @@ import FollowRepository from '@modules/users/infra/typeorm/repositories/FollowRe
 import ICommentsRepository from '@modules/publications/repositories/ICommentsRepository';
 import CommentsRepository from '@modules/publications/infra/typeorm/repositories/CommentsRepository';
 
+import ITermRepository from '@modules/users/repositories/ITermRepository';
+import TermRepository from '@modules/users/infra/typeorm/repositories/TermRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -58,3 +61,5 @@ container.registerSingleton<ICommentsRepository>(
   'CommentsRepository',
   CommentsRepository,
 );
+
+container.registerSingleton<ITermRepository>('TermRepository', TermRepository);
