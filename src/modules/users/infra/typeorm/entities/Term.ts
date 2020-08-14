@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import User from './User';
 
-@Entity('follows')
-class Follow {
+@Entity('terms')
+class Term {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -33,4 +33,4 @@ class Follow {
   updated_at: Date;
 }
 
-export default Follow;
+export default Term;
