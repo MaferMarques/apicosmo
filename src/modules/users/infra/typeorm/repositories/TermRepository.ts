@@ -27,6 +27,17 @@ class TermRepository implements ITermRepository {
 
     return foundTerm;
   }
+
+  public async findByTermSlugAndUserId(
+    term_slug: string,
+    user_id: string,
+  ): Promise<Term | undefined> {
+    const foundTerm = this.ormRepository.findOne({
+      where: { term_slug, user_id },
+    });
+
+    return foundTerm;
+  }
 }
 
 export default TermRepository;

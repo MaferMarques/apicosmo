@@ -16,7 +16,18 @@ termsRouter.post(
     },
   }),
   ensureAuthenticated,
-  termController.create,
+  termController.store,
+);
+
+termsRouter.get(
+  '/:term_slug',
+  celebrate({
+    [Segments.PARAMS]: {
+      term_slug: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  termController.index,
 );
 
 export default termsRouter;

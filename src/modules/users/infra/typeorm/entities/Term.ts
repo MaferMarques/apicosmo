@@ -16,7 +16,7 @@ class Term {
   @Column()
   user_id: string;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User, { eager: false })
   @JoinColumn({ name: 'user_id' })
   user: User;
 

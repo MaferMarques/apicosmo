@@ -23,6 +23,17 @@ class FakeTermRepository implements ITermRepository {
 
     return foundTerm;
   }
+
+  public async findByTermSlugAndUserId(
+    term_slug: string,
+    user_id: string,
+  ): Promise<Term | undefined> {
+    const foundTerm = this.terms.find(
+      (term) => term.term_slug === term_slug && term.user_id === user_id,
+    );
+
+    return foundTerm;
+  }
 }
 
 export default FakeTermRepository;
