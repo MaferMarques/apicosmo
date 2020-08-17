@@ -4,6 +4,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import TermController from '../controllers/TermController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import adminDetector from '../middlewares/adminDetector';
 
 const termsRouter = Router();
 const termController = new TermController();
@@ -27,6 +28,7 @@ termsRouter.get(
     },
   }),
   ensureAuthenticated,
+  adminDetector,
   termController.index,
 );
 
