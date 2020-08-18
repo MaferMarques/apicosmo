@@ -5,4 +5,6 @@ import Cargo from '../infra/typeorm/entities/Cargo';
 export default interface ICargoRepository {
   create(data: ICreateCargoDTO): Promise<Cargo>;
   findByName(name: string): Promise<Cargo | undefined>;
+  findById(cargo_id: string): Promise<Cargo | undefined>;
+  save(cargo: Cargo): Promise<Cargo>;
 }

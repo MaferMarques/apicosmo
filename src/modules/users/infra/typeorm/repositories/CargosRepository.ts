@@ -27,6 +27,18 @@ class CargosRepository implements ICargosRepository {
 
     return foundCargo;
   }
+
+  public async findById(id: string): Promise<Cargo | undefined> {
+    const foundCargo = this.ormRepository.findOne({
+      where: { id },
+    });
+
+    return foundCargo;
+  }
+
+  public async save(cargo: Cargo): Promise<Cargo> {
+    return this.ormRepository.save(cargo);
+  }
 }
 
 export default CargosRepository;

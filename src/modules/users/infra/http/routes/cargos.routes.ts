@@ -23,4 +23,21 @@ cargosRouter.post(
   cargosController.create,
 );
 
+cargosRouter.put(
+  '/:cargo_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      cargo_id: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string(),
+      description: Joi.string(),
+      color: Joi.string(),
+    },
+  }),
+  ensureAuthenticated,
+  adminDetector,
+  cargosController.update,
+);
+
 export default cargosRouter;

@@ -23,6 +23,22 @@ class FakeCargoRepository implements ICargosRepository {
 
     return foundCargo;
   }
+
+  public async findById(id: string): Promise<Cargo | undefined> {
+    const foundCargo = this.cargos.find((cargo) => cargo.id === id);
+
+    return foundCargo;
+  }
+
+  public async save(cargo: Cargo): Promise<Cargo> {
+    const findIndex = this.cargos.findIndex(
+      (findCargo) => findCargo.id === cargo.id,
+    );
+
+    this.cargos[findIndex] = cargo;
+
+    return cargo;
+  }
 }
 
 export default FakeCargoRepository;
