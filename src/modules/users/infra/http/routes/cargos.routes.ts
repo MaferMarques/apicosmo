@@ -4,6 +4,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import CargosController from '../controllers/CargosController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import adminDetector from '../middlewares/adminDetector';
 
 const cargosRouter = Router();
 const cargosController = new CargosController();
@@ -18,6 +19,7 @@ cargosRouter.post(
     },
   }),
   ensureAuthenticated,
+  adminDetector,
   cargosController.create,
 );
 
