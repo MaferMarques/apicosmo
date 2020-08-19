@@ -7,4 +7,5 @@ export default interface ICargoRepository {
   findByName(name: string): Promise<Cargo | undefined>;
   findById(cargo_id: string): Promise<Cargo | undefined>;
   save(cargo: Cargo): Promise<Cargo>;
+  findAll(): Promise<Cargo[] | undefined>;
 }

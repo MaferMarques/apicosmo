@@ -39,6 +39,10 @@ class FakeCargoRepository implements ICargosRepository {
 
     return cargo;
   }
+
+  public async findAll(): Promise<Cargo[] | undefined> {
+    return this.cargos;
+  }
 }
 
 export default FakeCargoRepository;

@@ -4,6 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateCargoService from '@modules/users/services/CreateCargoService';
 import UpdateCargoService from '@modules/users/services/UpdateCargoService';
+import ReadCargosService from '@modules/users/services/ReadCargosService';
 
 export default class CargosController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -20,6 +21,18 @@ export default class CargosController {
     });
 
     return response.json(classToClass(cargo));
+  }
+
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+
+    const readCargos = container.resolve(ReadCargosService);
+
+    const cargos = await readCargos.execute({
+      user_id,
+    });
+
+    return response.json(classToClass(cargos));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

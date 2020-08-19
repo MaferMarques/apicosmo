@@ -23,6 +23,13 @@ cargosRouter.post(
   cargosController.create,
 );
 
+cargosRouter.get(
+  '/',
+  ensureAuthenticated,
+  adminDetector,
+  cargosController.index,
+);
+
 cargosRouter.put(
   '/:cargo_id',
   celebrate({

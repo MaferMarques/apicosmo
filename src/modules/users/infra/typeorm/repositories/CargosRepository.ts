@@ -39,6 +39,12 @@ class CargosRepository implements ICargosRepository {
   public async save(cargo: Cargo): Promise<Cargo> {
     return this.ormRepository.save(cargo);
   }
+
+  public async findAll(): Promise<Cargo[] | undefined> {
+    const cargos = this.ormRepository.find();
+
+    return cargos;
+  }
 }
 
 export default CargosRepository;
