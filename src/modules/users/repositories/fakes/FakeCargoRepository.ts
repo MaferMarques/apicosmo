@@ -43,6 +43,12 @@ class FakeCargoRepository implements ICargosRepository {
   public async findAll(): Promise<Cargo[] | undefined> {
     return this.cargos;
   }
+
+  public async delete(cargo_id: string): Promise<void> {
+    const findIndex = this.cargos.findIndex((cargo) => cargo.id === cargo_id);
+
+    this.cargos.splice(findIndex, 1);
+  }
 }
 
 export default FakeCargoRepository;

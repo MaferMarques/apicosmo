@@ -5,6 +5,7 @@ import { classToClass } from 'class-transformer';
 import CreateCargoService from '@modules/users/services/CreateCargoService';
 import UpdateCargoService from '@modules/users/services/UpdateCargoService';
 import ReadCargosService from '@modules/users/services/ReadCargosService';
+import DeleteCargoService from '@modules/users/services/DeleteCargoService';
 
 export default class CargosController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -51,5 +52,22 @@ export default class CargosController {
     });
 
     return response.json(classToClass(cargo));
+  }
+
+  public async destroy(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { cargo_id } = request.params;
+    const user_id = request.user.id;
+
+    const deleteCargo = container.resolve(DeleteCargoService);
+
+    await deleteCargo.execute({
+      user_id,
+      cargo_id,
+    });
+
+    return response.json().send();
   }
 }

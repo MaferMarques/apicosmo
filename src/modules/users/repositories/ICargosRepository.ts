@@ -8,4 +8,5 @@ export default interface ICargoRepository {
   findById(cargo_id: string): Promise<Cargo | undefined>;
   save(cargo: Cargo): Promise<Cargo>;
   findAll(): Promise<Cargo[] | undefined>;
+  delete(cargo_id: string): Promise<void>;
 }

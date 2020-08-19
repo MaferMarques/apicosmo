@@ -47,4 +47,16 @@ cargosRouter.put(
   cargosController.update,
 );
 
+cargosRouter.delete(
+  '/:cargo_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      cargo_id: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticated,
+  adminDetector,
+  cargosController.destroy,
+);
+
 export default cargosRouter;

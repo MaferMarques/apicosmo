@@ -45,6 +45,10 @@ class CargosRepository implements ICargosRepository {
 
     return cargos;
   }
+
+  public async delete(cargo_id: string): Promise<void> {
+    await this.ormRepository.delete(cargo_id);
+  }
 }
 
 export default CargosRepository;
