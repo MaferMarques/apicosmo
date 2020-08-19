@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 import User from '../../typeorm/entities/User';
