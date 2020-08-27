@@ -7,12 +7,6 @@ import User from '../../typeorm/entities/User';
 
 // import authConfig from '@config/auth';
 
-interface ITokenPayload {
-  iat: number;
-  exp: number;
-  sub: string;
-}
-
 export default async function adminDetector(
   request: Request,
   response: Response,
