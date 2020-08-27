@@ -9,6 +9,7 @@ import PostsController from '../controllers/PostsController';
 import PostsImageController from '../controllers/PostsImageController';
 import LikesController from '../controllers/LikesController';
 import CommentsController from '../controllers/CommentsController';
+import AnswersController from '../controllers/AnswersController';
 
 const postsRouter = Router();
 
@@ -16,6 +17,7 @@ const postsController = new PostsController();
 const postsImageController = new PostsImageController();
 const likesController = new LikesController();
 const commentsController = new CommentsController();
+const answersController = new AnswersController();
 
 const upload = multer(uploadConfig);
 
@@ -128,7 +130,58 @@ postsRouter.delete(
   }),
   commentsController.destroy,
 );
+//
 
+// Answer Part
+postsRouter.post(
+  '/:post_id/comments/:comment_id/answers',
+  ensureAuthenticated,
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
+  answersController.create,
+);
+
+postsRouter.get(
+  '/:post_id/comments/:comment_id/answers',
+  ensureAuthenticated,
+  answersController.index,
+);
+
+postsRouter.put(
+  '/:post_id/comments/:comment_id/answers',
+  ensureAuthenticated,
+  celebrate(
+    {
+      body: Joi.object().keys({
+        content: Joi.string().required(),
+        comment_id: Joi.string().required(),
+      }),
+    },
+    {
+      abortEarly: false,
+    },
+  ),
+  answersController.update,
+);
+
+postsRouter.delete(
+  '/:post_id/comments/:comment_id/answers',
+  ensureAuthenticated,
+  celebrate({
+    body: Joi.object().keys({
+      comment_id: Joi.string().required(),
+    }),
+  }),
+  answersController.destroy,
+);
 //
 
 export default postsRouter;
